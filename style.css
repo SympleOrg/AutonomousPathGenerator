@@ -36,6 +36,12 @@ html, body {
     text-align: center;
 }
 
+.setting-panel > p {
+    text-align: center;
+    color: #c7c7c7;
+    margin: 10px;
+}
+
 input {
     padding: 7px;
     margin: 5px;
