@@ -13,25 +13,30 @@ html, body {
     flex-direction: row;
 }
 
-.point-settings {
-    height: 100vh;
+.setting-panel {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.setting-panel div {
     width: 100%;
     min-width: 350px;
     background-color: #2c2c2c;
     padding: 0 30px;
 }
 
-.point-settings h1 {
+.setting-panel div h1 {
     text-decoration: underline;
     margin: 10px;
 }
 
-.point-settings h1, .point-settings label, .point-settings p {
+.setting-panel div h1, .setting-panel div label, .setting-panel div p {
     color: #fff;
     text-align: center;
 }
 
-.point-settings input {
+input {
     padding: 7px;
     margin: 5px;
     width: 75px;
@@ -47,16 +52,20 @@ html, body {
     text-align: center;
 }
 
-.point-settings input::placeholder {
+input::placeholder {
     color: #999;
 }
 
-.point-settings input:focus {
+input:focus {
     border-color: #ff00ff;
 }
 
-.point-settings input:last-child {
+.point-settings input#settings-connection {
     width: 200px;
+}
+
+.point-settings input#settings-start {
+    width: fit-content;
 }
 
 

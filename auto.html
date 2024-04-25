@@ -4,22 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/47707e3c08.js" crossorigin="anonymous"></script>
     <title>Build Path</title>
 </head>
 <body>
     <div id="app">
-        <div class="point-settings">
-            <h1>Point Settings</h1>
-            <br>
-            <p id="id-text">ID: ----</p>
-            <br>
-            <label>X:</label>
-            <input id="settings-x" onchange="updateXSetting()" type="number" placeholder="X">
-            <label>Y:</label>
-            <input id="settings-y" onchange="updateYSetting()" type="number" placeholder="Y">
-            <br>
-            <label>Connected To: </label>
-            <input id="settings-connection" type="text" onchange="updateConnectionSetting()" placeholder="Point ID">
+        <div class="setting-panel">
+            <div class="robot-settings">
+                <h1>Robot Settings</h1>
+                <label>Width:</label>
+                <input id="settings-robot-width" type="number" placeholder="Width">
+                <label>Height:</label>
+                <input id="settings-robot-height" type="number" placeholder="Height">
+            </div>
+            <div class="point-settings">
+                <h1>Point Settings</h1>
+                <br>
+                <p id="id-text">ID: ----</p>
+                <br>
+                <label>X:</label>
+                <input id="settings-x" type="number" placeholder="X">
+                <label>Y:</label>
+                <input id="settings-y" type="number" placeholder="Y">
+                <br>
+                <label>Connected To: </label>
+                <input id="settings-connection" type="text" placeholder="Point ID">
+                <br>
+                <label>Staring Point?</label>
+                <input id="settings-start" type="checkbox">
+            </div>
         </div>
         <div class="centerstage">
             <canvas id="screen">

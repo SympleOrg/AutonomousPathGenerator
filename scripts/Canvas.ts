@@ -27,25 +27,41 @@ export const addOnClickEvent = (callback) => onClickEvents.push(callback)
 export const addOnContextmenuEvent = (callback) => onContextMenuEvents.push(callback)
 
 export const getCanvasPos = () => new Vec2d(canvas.getBoundingClientRect().x, canvas.getBoundingClientRect().y);
-export const getCanvasSize = () => ({width: canvas.width, height: canvas.height})
+export const getCanvasSize = () => ({width: canvas.width, height: canvas.height, toVec: () => new Vec2d(canvas.width, canvas.height)})
 
 export const drawImage = (image: HTMLImageElement, x: number, y: number, width: number, height: number) =>  ctx.drawImage(image, x, y, width, height)
 
 export function drawCircle(x: number, y: number, radius: number, fillColor: string, strokeWidth: number, strokeColor: string) {
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = fillColor;
-    ctx.fill();
     ctx.lineWidth = strokeWidth;
     ctx.strokeStyle = strokeColor;
+    ctx.fillStyle = fillColor;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+    ctx.fill();
     ctx.stroke();
 }
 
 export function drawLine(from: Vec2d, to: Vec2d, color: string, width: number) {
+    ctx.lineWidth = width;
+    ctx.strokeStyle = color;
     ctx.beginPath();
     ctx.moveTo(from.x, from.y);
     ctx.lineTo(to.x, to.y);
-    ctx.lineWidth = width;
-    ctx.strokeStyle = color;
     ctx.stroke();
+}
+
+export function drawSquare(x: number, y: number, width: number, height: number, deg: number, color: string, lineWidth: number = 1) {
+    ctx.save();
+
+    const relCenterPos = new Vec2d(width, height).div(2)
+    const centerPos = new Vec2d(x, y).add(relCenterPos)
+
+    ctx.translate(centerPos.x, centerPos.y);
+    ctx.rotate(deg * Math.PI / 180);
+
+    ctx.strokeStyle = color
+    ctx.lineWidth = lineWidth;
+    ctx.strokeRect(-relCenterPos.x, -relCenterPos.y, width, height)
+    
+    ctx.restore()
 }

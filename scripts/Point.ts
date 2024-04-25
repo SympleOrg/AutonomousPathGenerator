@@ -5,11 +5,13 @@ export default class Point {
     pos: Vec2d
     id: any
     connection: any
+    start: boolean
 
-    constructor(x: number, y: number, id: string, connection: Point =null) {
+    constructor(x: number, y: number, id: string, connection: Point =null, start: boolean = false) {
         this.pos = new Vec2d(x, y)
         this.id = id
         this.connection = connection
+        this.start = start;
     }
 
     getPosAsPixel(): Vec2d {
