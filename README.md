@@ -2,4 +2,4 @@
 
 Hello there :D
 
-(![pic](https://github.com/Symple25125/AutonomousPathGenerator/tree/main/.github/assets/image.png))
+![pic](https://github.com/Symple25125/AutonomousPathGenerator/blob/main/.github/assets/image.png)
