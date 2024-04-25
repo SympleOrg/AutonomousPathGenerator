@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "module": "CommonJS",
+        "module": "ES2022",
         "target": "ES5",
         "baseUrl": "./",
-        "outDir": "scripts",
+        "outDir": "dist",
         "rootDir": "scripts"
     },
     "include": ["./**/*.ts"],
