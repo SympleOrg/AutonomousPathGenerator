@@ -65,3 +65,40 @@ export function drawSquare(x: number, y: number, width: number, height: number, 
     
     ctx.restore()
 }
+
+export function drawArrow(from: Vec2d, to: Vec2d, width: number, color: string, headlen: number = 10) {
+    const dist = to.sub(from);
+    const angle = Math.atan2(dist.y, dist.x);
+ 
+    ctx.save();
+    ctx.strokeStyle = color;
+ 
+    //starting path of the arrow from the start square to the end square
+    //and drawing the stroke
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.lineWidth = width;
+    ctx.stroke();
+ 
+    //starting a new path from the head of the arrow to one of the sides of
+    //the point
+    ctx.beginPath();
+    ctx.moveTo(to.x, to.y);
+    ctx.lineTo(to.x-headlen*Math.cos(angle-Math.PI/7),
+               to.y-headlen*Math.sin(angle-Math.PI/7));
+ 
+    //path from the side point of the arrow, to the other side point
+    ctx.lineTo(to.x-headlen*Math.cos(angle+Math.PI/7),
+               to.y-headlen*Math.sin(angle+Math.PI/7));
+ 
+    //path from the side point back to the tip of the arrow, and then
+    //again to the opposite side point
+    ctx.lineTo(to.x, to.y);
+    ctx.lineTo(to.x-headlen*Math.cos(angle-Math.PI/7),
+               to.y-headlen*Math.sin(angle-Math.PI/7));
+ 
+    //draws the paths created above
+    ctx.stroke();
+    ctx.restore();
+}

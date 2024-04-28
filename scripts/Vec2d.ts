@@ -25,4 +25,11 @@ export default class Vec2d {
         if(typeof v === "number") return new Vec2d(this.x / v, this.y / v)
         return new Vec2d(this.x / v.x, this.y / v.y)
     }
+
+    toJson(): any {
+        return {
+            x: this.x,
+            y: this.y
+        }
+    }
 }

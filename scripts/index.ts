@@ -8,26 +8,37 @@ import {
     drawImage,
     drawCircle,
     drawLine,
-    drawSquare
+    drawSquare,
+    drawArrow
 } from "./Canvas.js"
 
 import Point from "./Point.js"
 import Vec2d from "./Vec2d.js"
-import { getRobotHeight, getRobotWidth, updatePointSettings, updateRobotSettings } from "./Settings.js"
-
+import {
+    getRobotHeight,
+    getRobotWidth,
+    getRobotStartingAngle,
+    updatePointSettings,
+    updateRobotSettings
+} from "./Settings.js"
+import PathGenerator from "./Generator.js"
 import Line from "./shapes/Line.js"
 import Circle from "./shapes/Circle.js"
+import Logger from "./util/Logger.js"
+import { tryToSave, tryToLoad, tryToDelete } from "./Save.js"
 
 const centerStageImage = new Image(30, 30)
 centerStageImage.src = "/centerstage.webp"
 
 const pointRadius = 5
 
-const points: Point[] = []
+export const points: Point[] = []
 export let selectedPoint: Point | null = null;
+export const consoleOutput = new Logger("console-output");
 
 updateCanvasSize()
 updateRobotSettings()
+PathGenerator.initialize()
 
 const selectPoint = (point: Point) => {
     selectedPoint = point
@@ -47,6 +58,12 @@ const removePoint = (point: Point) => {
     const index = points.findIndex(pt => pt.id == point.id);
     if(index >= 0) points.splice(index, 1);
 }
+
+window.addEventListener("keypress", (e) => {
+    if(e.key == "o") tryToSave()
+    else if(e.key == "p") tryToLoad()
+    else if(e.key == "i") tryToDelete()
+})
 
 addOnClickEvent((event: MouseEvent) => {
     const canavsPos = getCanvasPos()
@@ -116,14 +133,17 @@ function draw() {
             const relSize = new Vec2d(getRobotWidth(), getRobotHeight()).div(cmPerPixel)
             const robotCenterPos = pos.sub(relSize.div(2))
             
-            let angle: number = 0;
-
-            if(connectionPoint != null) {
-                const idk = connectionPoint.pos.sub(p.pos)
-                angle = Math.atan2(idk.y, idk.x) * 180 / Math.PI;
-            }
+            const angle: number = connectionPoint != null ? p.calcAngleToPoint(connectionPoint.pos) : 0;
 
             drawSquare(robotCenterPos.x, robotCenterPos.y, relSize.x, relSize.y, angle, "#ff8800", 2)
+        }
+
+        if(p.start) {
+            const angleInRad = getRobotStartingAngle() * (Math.PI / 180)
+            const pX = Math.cos(angleInRad) * 25 / cmPerPixel + pos.x
+            const pY = Math.sin(angleInRad) * 25 / cmPerPixel + pos.y
+
+            drawArrow(pos, new Vec2d(pX, pY), 5, "#000000", 5)
         }
 
         if(connectionPoint != null) {

@@ -9,6 +9,7 @@ const idText = document.getElementById("id-text")
 
 const robotWidthSettings: HTMLInputElement = document.getElementById("settings-robot-width") as HTMLInputElement
 const robotHeightSettings: HTMLInputElement = document.getElementById("settings-robot-height") as HTMLInputElement
+const robotStartingAngleSettings: HTMLInputElement = document.getElementById("settings-robot-angle") as HTMLInputElement
 
 export const updatePointSettings = (selectedPoint: Point) => {
     xSetting.value = `${selectedPoint.pos.x}`
@@ -23,6 +24,7 @@ export const updateRobotSettings = () => {
 
     robotWidthSettings.value = `${rbSettings.width}`
     robotHeightSettings.value = `${rbSettings.height}`
+    robotStartingAngleSettings.value = `${rbSettings.startingAngle}`
 }
 
 export const getPointXValue = () => parseFloat(xSetting.value)
@@ -32,6 +34,7 @@ export const getPointStartValue = () => startSetting.checked
 
 export const getRobotWidth = () => parseFloat(robotWidthSettings.value)
 export const getRobotHeight = () => parseFloat(robotHeightSettings.value)
+export const getRobotStartingAngle = () => parseFloat(robotStartingAngleSettings.value)
 
 xSetting.addEventListener("change", () => {
     if(selectedPoint) selectedPoint.pos.x = getPointXValue()
@@ -52,12 +55,13 @@ startSetting.addEventListener("change", () => {
 
 robotWidthSettings.addEventListener("change", saveRobotSettings)
 robotHeightSettings.addEventListener("change", saveRobotSettings)
+robotStartingAngleSettings.addEventListener("change", saveRobotSettings)
 
 
 function saveRobotSettings(): void {
-    window.localStorage.setItem("robotSettings", JSON.stringify({ width: getRobotWidth(), height: getRobotHeight() }))
+    window.localStorage.setItem("robotSettings", JSON.stringify({ width: getRobotWidth(), height: getRobotHeight(), startingAngle: getRobotStartingAngle() }))
 }
 
-function loadRobotSettings(): { width: number, height: number } {
+function loadRobotSettings(): { width: number, height: number, startingAngle: number } {
     return JSON.parse(window.localStorage.getItem("robotSettings"))
 }

@@ -11,12 +11,15 @@
     <div id="app">
         <div class="setting-panel">
             <p>Hold shift to connect points || Hold Ctrl and click a point to make it a starting point</p>
+            <p>Press 'O' To save || Press 'P' To load || Press 'I' To delete</p>
             <div class="robot-settings">
                 <h1>Robot Settings</h1>
                 <label>Width:</label>
                 <input id="settings-robot-width" type="number" placeholder="Width">
                 <label>Height:</label>
                 <input id="settings-robot-height" type="number" placeholder="Height">
+                <label>Starting Angle:</label>
+                <input id="settings-robot-angle" type="number" placeholder="Angle">
             </div>
             <div class="point-settings">
                 <h1>Point Settings</h1>
@@ -33,6 +36,14 @@
                 <br>
                 <label>Staring Point?</label>
                 <input id="settings-start" type="checkbox">
+            </div>
+            <div class="output-panel">
+                <h1>Output</h1>
+                <button id="generate-path-button">Generate</button>
+                <span>
+                    <div id="command-output"></div>
+                    <div id="console-output"></div>
+                </span>
             </div>
         </div>
         <div class="centerstage">
