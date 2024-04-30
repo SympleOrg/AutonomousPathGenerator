@@ -1,4 +1,5 @@
-# Automous Path Gnerator (WIP)
+# Prototype
+# Automous Path Gnerator (OLD)
 
 Hello there :D
 
