@@ -11,6 +11,10 @@ const robotWidthSettings: HTMLInputElement = document.getElementById("settings-r
 const robotHeightSettings: HTMLInputElement = document.getElementById("settings-robot-height") as HTMLInputElement
 const robotStartingAngleSettings: HTMLInputElement = document.getElementById("settings-robot-angle") as HTMLInputElement
 
+document.querySelectorAll("#category-button").forEach(button => {
+    button.addEventListener("click", () => button.parentElement?.parentElement?.classList.toggle("close"))
+})
+
 export const updatePointSettings = (selectedPoint: Point) => {
     xSetting.value = `${selectedPoint.pos.x}`
     ySetting.value = `${selectedPoint.pos.y}`

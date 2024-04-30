@@ -10,19 +10,34 @@
 <body>
     <div id="app">
         <div class="setting-panel">
-            <p>Hold shift to connect points || Hold Ctrl and click a point to make it a starting point</p>
-            <p>Press 'O' To save || Press 'P' To load || Press 'I' To delete</p>
+            <div class="close">
+                <div>
+                    <h1>Help</h1>
+                    <button id="category-button"><i class="fa-solid fa-caret-up"></i></button>
+                </div>
+                <p>- Hold shift to connect points || Hold Ctrl and click a point to make it a starting point</p>
+                <p>- Press 'O' To save || Press 'P' To load || Press 'I' To delete</p>
+                <p>- Select a point and use the arrow keys to move it</p>
+            </div>
             <div class="robot-settings">
-                <h1>Robot Settings</h1>
+                <div>
+                    <h1>Robot Settings</h1>
+                    <button id="category-button"><i class="fa-solid fa-caret-up"></i></button>
+                </div>
                 <label>Width:</label>
                 <input id="settings-robot-width" type="number" placeholder="Width">
+                <br>
                 <label>Height:</label>
                 <input id="settings-robot-height" type="number" placeholder="Height">
+                <br>
                 <label>Starting Angle:</label>
                 <input id="settings-robot-angle" type="number" placeholder="Angle">
             </div>
             <div class="point-settings">
-                <h1>Point Settings</h1>
+                <div>
+                    <h1>Point Settings</h1>
+                    <button id="category-button"><i class="fa-solid fa-caret-up"></i></button>
+                </div>
                 <br>
                 <p id="id-text">ID: ----</p>
                 <br>
@@ -38,8 +53,15 @@
                 <input id="settings-start" type="checkbox">
             </div>
             <div class="output-panel">
-                <h1>Output</h1>
+                <div>
+                    <h1>Output</h1>
+                    <button id="category-button"><i class="fa-solid fa-caret-up"></i></button>
+                </div>
                 <button id="generate-path-button">Generate</button>
+                <button id="download-code-button">Download Commands</button>
+                <button id="download-save-button">Download Save</button>
+                <label for="upload-save">Upload Save</label>
+                <input id="upload-save" type="file" accept=".json"/>
                 <span>
                     <div id="command-output"></div>
                     <div id="console-output"></div>
@@ -47,7 +69,7 @@
             </div>
         </div>
         <div class="centerstage">
-            <canvas id="screen">
+            <canvas tabindex='1' id="screen"></canvas>
         </div>
     </div>
 

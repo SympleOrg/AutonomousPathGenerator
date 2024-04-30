@@ -3,7 +3,7 @@ import { getRobotStartingAngle } from "./Settings.js";
 import Logger from "./util/Logger.js"
 
 const generatePathButton = document.getElementById("generate-path-button");
-const commandOuput = new Logger("command-output");
+export const commandOuput = new Logger("command-output");
 
 const commands = {
     forward: "new MoveForwardCommand(this.driveBase, &{dist})",
@@ -30,6 +30,8 @@ export const generatePath = () => {
     commandOuput.clear();
     consoleOutput.clear();
 
+    const visitedPoints: string[] = [];
+
     let point = startingPoint;
     let lastAngle = getRobotStartingAngle()
 
@@ -52,6 +54,12 @@ export const generatePath = () => {
     
         point = connectionPoint;
         lastAngle += angle
+        
+        if(!visitedPoints.includes(point.id)) {
+            visitedPoints.push(point.id);
+        } else {
+            break;
+        }
     }
 
     consoleOutput.log("Done!");

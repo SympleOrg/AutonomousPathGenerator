@@ -23,8 +23,12 @@ canvas.addEventListener("click", (event) => onClickEvents.forEach(callback => ca
 const onContextMenuEvents = []
 canvas.addEventListener("contextmenu", (event) => onContextMenuEvents.forEach(callback => callback(event)))
 
-export const addOnClickEvent = (callback) => onClickEvents.push(callback)
-export const addOnContextmenuEvent = (callback) => onContextMenuEvents.push(callback)
+const onKeyDownEvents = []
+canvas.addEventListener("keydown", (event) => onKeyDownEvents.forEach(callback => callback(event)))
+
+export const addOnClickEvent = (callback: any) => onClickEvents.push(callback)
+export const addOnContextmenuEvent = (callback: any) => onContextMenuEvents.push(callback)
+export const addKeyDownEvent = (callback: any) => onKeyDownEvents.push(callback)
 
 export const getCanvasPos = () => new Vec2d(canvas.getBoundingClientRect().x, canvas.getBoundingClientRect().y);
 export const getCanvasSize = () => ({width: canvas.width, height: canvas.height, toVec: () => new Vec2d(canvas.width, canvas.height)})

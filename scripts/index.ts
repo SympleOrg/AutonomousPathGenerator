@@ -3,6 +3,7 @@ import {
     updateCanvasSize,
     addOnClickEvent,
     addOnContextmenuEvent,
+    addKeyDownEvent,
     getCanvasPos,
     getCanvasSize,
     drawImage,
@@ -25,7 +26,7 @@ import PathGenerator from "./Generator.js"
 import Line from "./shapes/Line.js"
 import Circle from "./shapes/Circle.js"
 import Logger from "./util/Logger.js"
-import { tryToSave, tryToLoad, tryToDelete } from "./Save.js"
+import { tryToSave, tryToLoadFromLocalStorage, tryToDeleteFromLocalStorage } from "./Save.js"
 
 const centerStageImage = new Image(30, 30)
 centerStageImage.src = "/centerstage.webp"
@@ -61,8 +62,23 @@ const removePoint = (point: Point) => {
 
 window.addEventListener("keypress", (e) => {
     if(e.key == "o") tryToSave()
-    else if(e.key == "p") tryToLoad()
-    else if(e.key == "i") tryToDelete()
+    else if(e.key == "p") tryToLoadFromLocalStorage()
+    else if(e.key == "i") tryToDeleteFromLocalStorage()
+})
+
+addKeyDownEvent((e: KeyboardEvent) => {
+    const force = new Vec2d(0, 0)
+    const moveSpeed = 1;
+    
+    if(e.key == "ArrowUp") force.y -= moveSpeed;
+    if(e.key == "ArrowDown") force.y += moveSpeed;
+    if(e.key == "ArrowLeft") force.x -= moveSpeed;
+    if(e.key == "ArrowRight") force.x += moveSpeed;
+
+    if(selectedPoint.pos.x + force.x >= 0 && selectedPoint.pos.x + force.x <= getCanvasSize().width * cmPerPixel) selectedPoint.pos.x += force.x;
+    if(selectedPoint.pos.y + force.y >= 0 && selectedPoint.pos.y + force.y <= getCanvasSize().height * cmPerPixel) selectedPoint.pos.y += force.y;
+    
+    updatePointSettings(selectedPoint)
 })
 
 addOnClickEvent((event: MouseEvent) => {
@@ -81,17 +97,19 @@ addOnClickEvent((event: MouseEvent) => {
                 }
             } else if(event.ctrlKey) {
                 return makePointStart(p);
+            } else if(selectedPoint?.id == p.id) {
+                return selectedPoint = null;
             }
+
             return selectPoint(p);
         }
     }
     
     const point = new Point(xPos * cmPerPixel, yPos * cmPerPixel, genUUID());
-    if(event.shiftKey) {
-        if(selectedPoint) {
-            selectedPoint.connection = point.id;
-        }
-    }
+    if(event.shiftKey && selectedPoint) selectedPoint.connection = point.id;
+
+    if(event.ctrlKey) makePointStart(point);
+
     selectPoint(point);
 
     points.push(point)
@@ -124,12 +142,12 @@ function draw() {
         let pointNormalColor = p.start ? "#990055" : "#ff00ee";
         let pointSelectedColor = p.start ? "#ff0033" : "#3300ff";
 
-        const color = selectedPoint.id == p.id ? pointSelectedColor : pointNormalColor
+        const color = selectedPoint?.id == p.id ? pointSelectedColor : pointNormalColor
         pointRenderQueue.push(new Circle(pos.x, pos.y, pointRadius, color))
 
         const connectionPoint = points.find(pt => pt.id == p.connection)
         
-        if(selectedPoint.id == p.id) {
+        if(selectedPoint && selectedPoint.id == p.id) {
             const relSize = new Vec2d(getRobotWidth(), getRobotHeight()).div(cmPerPixel)
             const robotCenterPos = pos.sub(relSize.div(2))
             
@@ -151,7 +169,7 @@ function draw() {
             let lineNormalColor = connectionPoint.connection == p.id ? "#009900" : "#0099ff";
             let lineSelectedColor = connectionPoint.connection == p.id ? "#00ff00" : "#00ffff";
 
-            let lineColor = selectedPoint.id == p.id || (connectionPoint.connection == p.id && selectedPoint.id == connectionPoint.id) ? lineSelectedColor : lineNormalColor;
+            let lineColor = selectedPoint?.id == p.id || (connectionPoint.connection == p.id && selectedPoint.id == connectionPoint.id) ? lineSelectedColor : lineNormalColor;
 
             lineRenderQueue.push(new Line(pos, cpPos, lineColor, 4))
         }
