@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "author": "Symple",
   "license": "ISC",
+  "repository": "https://github.com/Symple25125/AutonomousPathGenerator",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

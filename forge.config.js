@@ -15,7 +15,9 @@ module.exports = {
           owner: "Symple25125",
           name: "AutonomousPathGenerator"
         },
-        generateReleaseNotes: true
+        generateReleaseNotes: true,
+        draft: false,
+        prerelease: false
       }
     }
   ],
