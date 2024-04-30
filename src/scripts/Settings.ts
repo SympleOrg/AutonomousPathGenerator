@@ -67,5 +67,5 @@ function saveRobotSettings(): void {
 }
 
 function loadRobotSettings(): { width: number, height: number, startingAngle: number } {
-    return JSON.parse(window.localStorage.getItem("robotSettings"))
+    return JSON.parse(window.localStorage.getItem("robotSettings")) ?? { width: 0, height: 0, startingAngle: 0 }
 }

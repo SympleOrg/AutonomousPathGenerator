@@ -28,6 +28,10 @@ html, body {
     background: #797979; 
 }
 
+:focus {
+    outline: none;
+  }
+
 #app {
     display: flex;
     flex-direction: row;

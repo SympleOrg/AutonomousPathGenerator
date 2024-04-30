@@ -1,4 +1,4 @@
-import Vec2d from "scripts/Vec2d.js";
+import Vec2d from "../Vec2d.js";
 
 export default class Line {
     from: Vec2d;

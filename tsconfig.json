@@ -1,11 +1,14 @@
 {
     "compilerOptions": {
         "module": "ES2022",
-        "target": "ES5",
-        "baseUrl": "./",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "baseUrl": ".",
         "outDir": "dist",
-        "rootDir": "scripts"
+        "moduleResolution":"node",
+        "paths": {
+            "*": ["node_modules/*"]
+        }
     },
-    "include": ["./**/*.ts"],
-    "exclude": ["node_modules/**/*"]
+    "include": ["./**/*.ts"]
 }

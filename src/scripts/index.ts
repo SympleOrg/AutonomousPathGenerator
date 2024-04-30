@@ -29,7 +29,7 @@ import Logger from "./util/Logger.js"
 import { tryToSave, tryToLoadFromLocalStorage, tryToDeleteFromLocalStorage } from "./Save.js"
 
 const centerStageImage = new Image(30, 30)
-centerStageImage.src = "/centerstage.webp"
+centerStageImage.src = "assets/centerstage.webp"
 
 const pointRadius = 5
 

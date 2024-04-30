@@ -17,13 +17,13 @@ window.addEventListener("resize", () => {
 })
 
 
-const onClickEvents = []
+const onClickEvents: any[] = []
 canvas.addEventListener("click", (event) => onClickEvents.forEach(callback => callback(event)))
 
-const onContextMenuEvents = []
+const onContextMenuEvents: any[] = []
 canvas.addEventListener("contextmenu", (event) => onContextMenuEvents.forEach(callback => callback(event)))
 
-const onKeyDownEvents = []
+const onKeyDownEvents: any[] = []
 canvas.addEventListener("keydown", (event) => onKeyDownEvents.forEach(callback => callback(event)))
 
 export const addOnClickEvent = (callback: any) => onClickEvents.push(callback)

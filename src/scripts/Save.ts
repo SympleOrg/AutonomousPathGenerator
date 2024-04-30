@@ -50,6 +50,8 @@ export const downloadData = (name: string, blob: Blob) => {
 }
 
 const savePointsToFile = (name: string) => {
+    if(points.length == 0) return consoleOutput.log("No points to save");
+
     const data = {
         points: points.map(p => p.toJson())
     }
