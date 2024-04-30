@@ -24,7 +24,7 @@ Download the latest from https://github.com/Symple25125/AutonomousPathGenerator/
 2. run `npm run make`
 
 ## publish
-1. add the github token to the `.env` file
+1. add the github token (`GITHUB_TOKEN = "YOUR TOKEN"`) to the `.env` file
 2. run `npm run make`
 3. commit the code
 4. run `npm run publish`
