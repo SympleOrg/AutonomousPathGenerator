@@ -6,8 +6,8 @@ const generatePathButton = document.getElementById("generate-path-button");
 export const commandOuput = new Logger("command-output");
 
 const commands = {
-    forward: "new MoveForwardCommand(this.driveBase, &{dist})",
-    rotate: "new RotateCommand(this.driveBase, &{angle})",
+    forward: "new DriveDistanceDriveCommand(this.mecanumDriveSubsystem, &{dist})",
+    rotate: "new RotateRobotByDegCommand(this.mecanumDriveSubsystem, &{angle})",
 }
 
 export default {
