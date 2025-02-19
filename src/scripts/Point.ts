@@ -6,12 +6,14 @@ export default class Point {
     id: string
     connection: string | null
     start: boolean
+    strafe: boolean
 
-    constructor(x: number, y: number, id: string, connection: string =null, start: boolean = false) {
+    constructor(x: number, y: number, id: string, connection: string =null, start: boolean = false, strafe: boolean = false) {
         this.pos = new Vec2d(x, y)
         this.id = id
         this.connection = connection
         this.start = start;
+        this.strafe = strafe;
     }
 
     getPosAsPixel(): Vec2d {
@@ -37,11 +39,12 @@ export default class Point {
             pos: this.pos.toJson(),
             id: this.id,
             connection: this.connection,
-            start: this.start
+            start: this.start,
+            strafe: this.strafe
         }
     }
 
     static fromJson(json: any): Point {
-        return new Point(json.pos.x, json.pos.y, json.id, json.connection, json.start)
+        return new Point(json.pos.x, json.pos.y, json.id, json.connection, json.start, json.strafe)
     }
 }

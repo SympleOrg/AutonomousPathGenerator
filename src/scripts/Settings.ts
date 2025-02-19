@@ -5,6 +5,7 @@ const xSetting: HTMLInputElement = document.getElementById("settings-x") as HTML
 const ySetting: HTMLInputElement = document.getElementById("settings-y") as HTMLInputElement
 const connectionSetting: HTMLInputElement = document.getElementById("settings-connection") as HTMLInputElement
 const startSetting: HTMLInputElement = document.getElementById("settings-start") as HTMLInputElement
+const strafeSetting: HTMLInputElement = document.getElementById("settings-strafe") as HTMLInputElement
 const idText = document.getElementById("id-text")
 
 const robotWidthSettings: HTMLInputElement = document.getElementById("settings-robot-width") as HTMLInputElement
@@ -20,6 +21,7 @@ export const updatePointSettings = (selectedPoint: Point) => {
     ySetting.value = `${selectedPoint.pos.y}`
     connectionSetting.value = selectedPoint.connection
     startSetting.checked = selectedPoint.start
+    strafeSetting.checked = selectedPoint.strafe
     idText.innerHTML = `ID: ${selectedPoint.id}`
 }
 
@@ -35,6 +37,7 @@ export const getPointXValue = () => parseFloat(xSetting.value)
 export const getPointYValue = () => parseFloat(ySetting.value)
 export const getPointConnectionValue = () => connectionSetting.value
 export const getPointStartValue = () => startSetting.checked
+export const getPointStrafeValue = () => strafeSetting.checked
 
 export const getRobotWidth = () => parseFloat(robotWidthSettings.value)
 export const getRobotHeight = () => parseFloat(robotHeightSettings.value)
@@ -51,6 +54,11 @@ ySetting.addEventListener("change", () => {
 connectionSetting.addEventListener("change", () => {
     if(selectedPoint) selectedPoint.connection = getPointConnectionValue()
 })
+
+strafeSetting.addEventListener("change", () => {
+    if(selectedPoint) selectedPoint.strafe = getPointStrafeValue()
+})
+
 
 startSetting.addEventListener("change", () => {
     if(selectedPoint && getPointStartValue()) return makePointStart(selectedPoint);

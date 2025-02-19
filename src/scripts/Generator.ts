@@ -6,8 +6,9 @@ const generatePathButton = document.getElementById("generate-path-button");
 export const commandOuput = new Logger("command-output");
 
 const commands = {
-    forward: "new DriveDistanceDriveCommand(this.mecanumDriveSubsystem, &{dist})",
-    rotate: "new RotateRobotByDegCommand(this.mecanumDriveSubsystem, &{angle})",
+    forward: "drive(&{dist})",
+    rotate: "rotate(&{angle})",
+    strafe: "strafe(&{angle}, &{dist})",
 }
 
 export default {
@@ -47,13 +48,18 @@ export const generatePath = () => {
             return x - Math.round(x / y) * y;
         }
 
-        const angle = IEEEremainder(point.calcAngleToPoint(connectionPoint.pos) - lastAngle, 360)
         const moveDist = point.calcMoveDist(connectionPoint.pos)
-        commandOuput.log(commands.rotate.replace(/&{angle}/g, `${angle}`))
-        commandOuput.log(commands.forward.replace(/&{dist}/g, `${moveDist}`))
+        const angle = IEEEremainder(point.calcAngleToPoint(connectionPoint.pos) - lastAngle, 360)
+
+        if(point.strafe) {
+            commandOuput.log(commands.strafe.replace(/&{dist}/g, `${moveDist}`).replace(/&{angle}/g, `${angle}`))
+        } else {
+            commandOuput.log(commands.rotate.replace(/&{angle}/g, `${angle}`))
+            commandOuput.log(commands.forward.replace(/&{dist}/g, `${moveDist}`))   
+            lastAngle += angle
+        }
     
         point = connectionPoint;
-        lastAngle += angle
         
         if(!visitedPoints.includes(point.id)) {
             visitedPoints.push(point.id);
