@@ -37,6 +37,10 @@ export const generatePath = () => {
     let lastAngle = getRobotStartingAngle()
 
     while(true) {
+        for(const action of point.actions) {
+            commandOuput.log(action.toCommand())
+        }
+
         const connectionPoint = points.find(pt => pt.id == point.connection);
         if(!connectionPoint) {
             consoleOutput.log(`Point with id ${point.connection} was not found`);

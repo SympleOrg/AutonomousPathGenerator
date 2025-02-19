@@ -47,18 +47,23 @@
                 <br>
                 <label>Strafe?</label>
                 <input id="settings-strafe" type="checkbox">
-                <!-- <br>
+                <br>
+                <br>
                 <label>Actions: </label>
-                <ul></ul>
+                <ol id="setting-action-list" style="padding: 20px;">
+                    
+                </ol>
                 <br>
                 <label>Add Action: </label>
                 <select name="Action" id="setting-action">
                     <option value="none">- None -</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>                   -->
+                    <option value="scoreOnChamber">score on chamber</option>
+                    <option value="takeFromWall">Take from wall</option>
+                    <option value="pickupFromFloor">Pickup From Floor</option>
+                    <option value="intakeToBasket">Intake to Basket</option>
+                    <option value="scoreBasket">Score High Basket</option>
+                    <option value="wait">Wait</option>
+                </select>                  
                 <br>
                 <label>Connected To: </label>
                 <input id="settings-connection" type="text" placeholder="Point ID">
@@ -86,6 +91,61 @@
             <canvas tabindex='1' id="screen"></canvas>
         </div>
     </div>
+    
+    <template id="action-list-item-wait">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Wait Time ms:</label>
+                <input type="number" value="{{data.time}}" onkeyup="window.updateAction(this.parentElement.parentElement.dataset.id, 'time', this.value)">
+            </div>
+        </li>
+    </template>
+
+    <template id="action-list-item-scoreOnChamber">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="window.deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Score On Chamber</label>
+            </div>
+        </li>
+    </template>
+
+    <template id="action-list-item-takeFromWall">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="window.deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Take from wall</label>
+            </div>
+        </li>
+    </template>
+
+    <template id="action-list-item-pickupFromFloor">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="window.deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Pickup From Floor</label>
+            </div>
+        </li>
+    </template>
+
+    <template id="action-list-item-intakeToBasket">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="window.deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Intake to Basket</label>
+            </div>
+        </li>
+    </template>
+
+    <template id="action-list-item-scoreBasket">
+        <li data-id="{{actionId}}">
+            <div>
+                <button onclick="window.deleteAction(this.parentElement.parentElement.dataset.id)"><i class="fa-solid fa-trash"></i></button>
+                <label>Score High Basket</label>
+            </div>
+        </li>
+    </template>
 
     <script src="../dist/src/scripts/index.js" type="module"></script>
 </body>
